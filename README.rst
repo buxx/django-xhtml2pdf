@@ -16,9 +16,12 @@ Usage
 Simply do the following::
 
     from django_xhtml2pdf.utils import generate_pdf
+    from django.http import HttpResponse
 
     def myview(response):
-        resp = HttpResponse(content_type='application/pdf')
-        result = generate_pdf('my_template.html', file_object=resp)
+        response = HttpResponse(content_type='application/pdf')
+        # Uncomment next line if you want web navigator donwload the file
+        # response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+        result = generate_pdf('my_template.html', file_object=response, context={})
         return result
 
